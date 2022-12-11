@@ -21,16 +21,16 @@ public class Team {
     @Enumerated(EnumType.STRING)
     private TeamName teamName;
 
-    @Column(name = "points", nullable = false)
+    //TODO: ALO - add default value
+    @Column(name = "points")
     private int points;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "tournament_group_id", foreignKey = @ForeignKey(name = "team_tournament_group_fk"))
     private TournamentGroup tournamentGroupId;
 
-    public Team(TeamName teamName, int points, TournamentGroup tournamentGroupId) {
+    public Team(TeamName teamName, TournamentGroup tournamentGroupId) {
         this.teamName = teamName;
-        this.points = points;
         this.tournamentGroupId = tournamentGroupId;
     }
 

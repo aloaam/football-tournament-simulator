@@ -1,6 +1,7 @@
 package com.example.footballtournamentsimulator.match;
 
 import com.example.footballtournamentsimulator.team.Team;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,35 +27,24 @@ public class Match {
     @JoinColumn(name = "away_team_id", foreignKey = @ForeignKey(name = "away_team_fk"))
     private Team awayTeam;
 
+    @ManyToOne
+    @JoinColumn(name = "tournament_group_id", foreignKey = @ForeignKey(name = "tournament_group_fk"), nullable = false)
+    private TournamentGroup tournamentGroup;
 
     @Column(name = "match_day")
     private int matchDay;
 
-    @Column(name = "match_result", columnDefinition = "TEXT")
-    @Enumerated(EnumType.STRING)
-    private MatchResult matchResult;
+    @Column(name = "home_team_goals")
+    private int homeTeamGoals;
 
-    public Match(Team homeTeam, Team awayTeam, int matchDay) {
+    @Column(name = "away_team_goals")
+    private int awayTeamGoals;
+
+    public Match(Team homeTeam, Team awayTeam, TournamentGroup tournamentGroup, int matchDay) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        this.tournamentGroup = tournamentGroup;
         this.matchDay = matchDay;
     }
 
-    public Match(Team homeTeam, Team awayTeam, int matchDay, MatchResult matchResult) {
-        this.homeTeam = homeTeam;
-        this.awayTeam = awayTeam;
-        this.matchDay = matchDay;
-        this.matchResult = matchResult;
-    }
-
-    public Team getWinnerTeam(MatchResult matchResult) {
-        if (matchResult.equals(MatchResult.AWAY_TEAM_WIN)) {
-            return awayTeam;
-        }
-        if (matchResult.equals(MatchResult.HOME_TEAM_WIN)) {
-            return homeTeam;
-        }
-        //TODO: Alo - fix this
-        throw new RuntimeException("Error here");
-    }
 }

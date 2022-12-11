@@ -1,6 +1,6 @@
 package com.example.footballtournamentsimulator.tournamentgroup;
 
-public enum GroupName {
+public enum TournamentGroupName {
 
     A,
     B,
@@ -8,5 +8,6 @@ public enum GroupName {
     D,
     E,
     F,
-    G
+    G,
+    H
 }
