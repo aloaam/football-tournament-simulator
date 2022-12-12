@@ -40,7 +40,7 @@ public class FootballTournamentSimulatorApplication {
             teamPointsUpdater.updatePoints();
 
             final TournamentGroupVisualizer tournamentGroupVisualizer = new TournamentGroupVisualizer(teamRepository, tournamentGroupRepository);
-            tournamentGroupVisualizer.getGroupsPointsBy(TournamentGroupName.C);
+            tournamentGroupVisualizer.getGroupsPointsBy(TournamentGroupName.A).forEach(System.out::println);
 
         };
 

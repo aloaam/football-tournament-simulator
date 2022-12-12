@@ -5,14 +5,14 @@ import com.example.footballtournamentsimulator.match.MatchPoints;
 import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchResult;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 import static com.example.footballtournamentsimulator.match.MatchResult.*;
-import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.C;
-
+import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.*;
 
 @Slf4j
 public class TeamPointsUpdater {
@@ -28,13 +28,18 @@ public class TeamPointsUpdater {
     }
 
     public void updatePoints() {
-        updatePointsGroupC();
+        updatePointsForGroups(List.of(A, C));
     }
 
-    private void updatePointsGroupC() {
-        TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(C);
-        List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
-        matches.forEach(this::updatePoints);
+    private void updatePointsForGroups(List<TournamentGroupName> groupNames) {
+
+        groupNames
+                .forEach(groupName -> {
+                            TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(groupName);
+                            List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
+                            matches.forEach(this::updatePoints);
+                        }
+                );
     }
 
     private void updatePoints(Match match) {
