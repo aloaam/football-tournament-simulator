@@ -6,8 +6,7 @@ import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchResultsGenerator;
 import com.example.footballtournamentsimulator.team.TeamPointsUpdater;
 import com.example.footballtournamentsimulator.team.TeamRepository;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupGenerator;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
+import com.example.footballtournamentsimulator.tournamentgroup.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -39,6 +38,9 @@ public class FootballTournamentSimulatorApplication {
 
             TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(teamRepository, matchRepository, tournamentGroupRepository);
             teamPointsUpdater.updatePoints();
+
+            final TournamentGroupVisualizer tournamentGroupVisualizer = new TournamentGroupVisualizer(teamRepository, tournamentGroupRepository);
+            tournamentGroupVisualizer.getGroupsPointsBy(TournamentGroupName.C);
 
         };
 

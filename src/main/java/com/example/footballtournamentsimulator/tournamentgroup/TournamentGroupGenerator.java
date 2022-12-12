@@ -20,7 +20,6 @@ public class TournamentGroupGenerator {
     }
 
     public void generateTournamentGroups() {
-
         generateTournamentGroupA();
         generateTournamentGroupB();
         generateTournamentGroupC();
@@ -34,6 +33,12 @@ public class TournamentGroupGenerator {
 
     private void generateTournamentGroupA() {
         final TournamentGroup group = new TournamentGroup(A);
+        saveGroupInDb(List.of(
+                new Team(ECUADOR,group),
+                new Team(NETHERLANDS,group),
+                new Team(QATAR,group),
+                new Team(SENEGAL,group)
+        ));
     }
 
     private void generateTournamentGroupB() {

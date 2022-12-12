@@ -17,7 +17,23 @@ public class MatchResultsGenerator {
     }
 
     public void generateMatchResults() {
+        generateMatchResultsGroupA();
         generateMatchResultsGroupC();
+    }
+
+    public void generateMatchResultsGroupA() {
+        Team ecu = teamRepository.getTeamByTeamName(ECUADOR);
+        Team nld = teamRepository.getTeamByTeamName(NETHERLANDS);
+        Team qat = teamRepository.getTeamByTeamName(QATAR);
+        Team sen = teamRepository.getTeamByTeamName(SENEGAL);
+
+        matchRepository.updatePoints(qat.getId(), ecu.getId(), 0, 2);
+        matchRepository.updatePoints(sen.getId(), nld.getId(), 0, 2);
+        matchRepository.updatePoints(qat.getId(), sen.getId(), 1, 3);
+        matchRepository.updatePoints(nld.getId(), ecu.getId(), 1, 1);
+        matchRepository.updatePoints(ecu.getId(), sen.getId(), 1, 2);
+        matchRepository.updatePoints(nld.getId(), qat.getId(), 2, 0);
+
     }
 
     public void generateMatchResultsGroupC() {

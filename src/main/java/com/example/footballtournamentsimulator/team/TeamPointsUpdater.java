@@ -34,11 +34,7 @@ public class TeamPointsUpdater {
     private void updatePointsGroupC() {
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(C);
         List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
-//        matches.forEach(this::updatePoints);
-
-        for (Match match : matches) {
-            updatePoints(match);
-        }
+        matches.forEach(this::updatePoints);
     }
 
     private void updatePoints(Match match) {

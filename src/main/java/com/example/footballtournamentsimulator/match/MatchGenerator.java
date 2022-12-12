@@ -8,8 +8,10 @@ import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRe
 import java.util.List;
 
 import static com.example.footballtournamentsimulator.team.TeamName.*;
+import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.A;
 import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.C;
 
+@SuppressWarnings("DuplicatedCode")
 public class MatchGenerator {
 
     private final MatchRepository matchRepository;
@@ -23,7 +25,29 @@ public class MatchGenerator {
     }
 
     public void generateMatches() {
+        generateMatchesGroupA();
         generateMatchesGroupC();
+    }
+
+    private void generateMatchesGroupA() {
+
+        TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(A);
+
+        Team ecu = teamRepository.getTeamByTeamName(ECUADOR);
+        Team nld = teamRepository.getTeamByTeamName(NETHERLANDS);
+        Team qat = teamRepository.getTeamByTeamName(QATAR  );
+        Team sen = teamRepository.getTeamByTeamName(SENEGAL);
+
+        storeMatches(
+                List.of(
+                        new Match(qat, ecu, group, 1),
+                        new Match(sen, nld, group, 1),
+                        new Match(qat, sen, group, 2),
+                        new Match(nld, ecu, group, 2),
+                        new Match(ecu, sen, group, 3),
+                        new Match(nld, qat, group, 3)
+                )
+        );
     }
 
     private void generateMatchesGroupC() {
