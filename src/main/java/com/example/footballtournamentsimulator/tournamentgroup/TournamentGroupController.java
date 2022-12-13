@@ -23,7 +23,7 @@ public class TournamentGroupController {
 
     @GetMapping
     public List<Team> getGroupsPointsBy(TournamentGroupName groupName) {
-        final TournamentGroup group = groupRepository.getTournamentGroupByName(TournamentGroupName.C);
+        final TournamentGroup group = groupRepository.getTournamentGroupByName(TournamentGroupName.A);
         return teamRepository.getTeamByTournamentGroupId(
                 group.getId(),
                 Sort.by("points").descending());

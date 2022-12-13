@@ -43,6 +43,12 @@ public class TournamentGroupGenerator {
 
     private void generateTournamentGroupB() {
         final TournamentGroup group = new TournamentGroup(B);
+        saveGroupInDb(List.of(
+                new Team(ENGLAND, group),
+                new Team(IRAN, group),
+                new Team(USA, group),
+                new Team(WALES, group)
+        ));
     }
 
     private void generateTournamentGroupC() {
@@ -57,6 +63,12 @@ public class TournamentGroupGenerator {
 
     private void generateTournamentGroupD() {
         final TournamentGroup group = new TournamentGroup(D);
+        saveGroupInDb(List.of(
+                new Team(AUSTRALIA, group),
+                new Team(DENMARK, group),
+                new Team(FRANCE, group),
+                new Team(TUNISIA, group)
+        ));
     }
 
     private void generateTournamentGroupE() {
@@ -72,14 +84,32 @@ public class TournamentGroupGenerator {
 
     private void generateTournamentGroupF() {
         final TournamentGroup group = new TournamentGroup(F);
+        saveGroupInDb(List.of(
+                new Team(BELGIUM, group),
+                new Team(CANADA, group),
+                new Team(CROATIA, group),
+                new Team(MOROCCO, group)
+        ));
     }
 
     private void generateTournamentGroupG() {
         final TournamentGroup group = new TournamentGroup(G);
+        saveGroupInDb(List.of(
+                new Team(BRAZIL, group),
+                new Team(CAMEROON, group),
+                new Team(SERBIA, group),
+                new Team(SWITZERLAND, group)
+        ));
     }
 
     private void generateTournamentGroupH() {
         final TournamentGroup group = new TournamentGroup(H);
+        saveGroupInDb(List.of(
+                new Team(GHANA, group),
+                new Team(PORTUGAL, group),
+                new Team(SOUTH_KOREA, group),
+                new Team(URUGUAY, group)
+        ));
     }
 
     private void saveGroupInDb(List<Team> teams) {

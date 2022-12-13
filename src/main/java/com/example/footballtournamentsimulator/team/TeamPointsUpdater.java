@@ -12,7 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 import static com.example.footballtournamentsimulator.match.MatchResult.*;
-import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.*;
+import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.A;
+import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.C;
 
 @Slf4j
 public class TeamPointsUpdater {
@@ -21,6 +22,8 @@ public class TeamPointsUpdater {
     private final MatchRepository matchRepository;
     private final TournamentGroupRepository tournamentGroupRepository;
 
+
+    //TODO: Alo - check names, refactor the things that check the home and away team wins.
     public TeamPointsUpdater(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
         this.teamRepository = teamRepository;
         this.matchRepository = matchRepository;
@@ -32,14 +35,13 @@ public class TeamPointsUpdater {
     }
 
     private void updatePointsForGroups(List<TournamentGroupName> groupNames) {
+        groupNames.forEach(this::updateGroupPoints);
+    }
 
-        groupNames
-                .forEach(groupName -> {
-                            TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(groupName);
-                            List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
-                            matches.forEach(this::updatePoints);
-                        }
-                );
+    private void updateGroupPoints(TournamentGroupName groupName) {
+        TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(groupName);
+        List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
+        matches.forEach(this::updatePoints);
     }
 
     private void updatePoints(Match match) {
