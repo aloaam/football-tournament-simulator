@@ -1,7 +1,8 @@
-package com.example.footballtournamentsimulator.tournamentgroup;
+package com.example.footballtournamentsimulator.datagenerator;
 
 import com.example.footballtournamentsimulator.team.Team;
 import com.example.footballtournamentsimulator.team.TeamRepository;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import static com.example.footballtournamentsimulator.tournamentgroup.Tournament
 /**
  * Generates the groups (used if the application is generated from scratch).
  */
-public class TournamentGroupGenerator {
+public class TournamentGroupGenerator implements DataGenerator {
 
     private final TeamRepository teamRepository;
 
@@ -19,7 +20,8 @@ public class TournamentGroupGenerator {
         this.teamRepository = teamRepository;
     }
 
-    public void generateTournamentGroups() {
+    @Override
+    public void generate() {
         generateTournamentGroupA();
         generateTournamentGroupB();
         generateTournamentGroupC();
@@ -34,10 +36,10 @@ public class TournamentGroupGenerator {
     private void generateTournamentGroupA() {
         final TournamentGroup group = new TournamentGroup(A);
         saveGroupInDb(List.of(
-                new Team(ECUADOR,group),
-                new Team(NETHERLANDS,group),
-                new Team(QATAR,group),
-                new Team(SENEGAL,group)
+                new Team(ECUADOR, group),
+                new Team(NETHERLANDS, group),
+                new Team(QATAR, group),
+                new Team(SENEGAL, group)
         ));
     }
 
@@ -115,5 +117,4 @@ public class TournamentGroupGenerator {
     private void saveGroupInDb(List<Team> teams) {
         teamRepository.saveAll(teams);
     }
-
 }

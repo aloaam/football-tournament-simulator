@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "api/v1/groups")
@@ -22,10 +23,11 @@ public class TournamentGroupController {
     }
 
     @GetMapping
-    public List<Team> getGroupsPointsBy(TournamentGroupName groupName) {
-        final TournamentGroup group = groupRepository.getTournamentGroupByName(TournamentGroupName.A);
-        return teamRepository.getTeamByTournamentGroupId(
-                group.getId(),
-                Sort.by("points").descending());
+    public List<Team> getGroupDataOrderedByPoints() {
+        return groupRepository.getAllGroups()
+                .stream()
+                .map(group -> teamRepository.getTeamByTournamentGroupId(group.getId(), Sort.by("points").descending()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
     }
 }

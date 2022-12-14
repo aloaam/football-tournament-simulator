@@ -1,12 +1,12 @@
-package com.example.footballtournamentsimulator.match;
+package com.example.footballtournamentsimulator.datagenerator;
 
+import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.team.Team;
 import com.example.footballtournamentsimulator.team.TeamRepository;
 
 import static com.example.footballtournamentsimulator.team.TeamName.*;
 
-public class MatchResultsGenerator {
-
+public class MatchResultsGenerator implements DataGenerator {
 
     private final TeamRepository teamRepository;
     private final MatchRepository matchRepository;
@@ -16,7 +16,8 @@ public class MatchResultsGenerator {
         this.matchRepository = matchRepository;
     }
 
-    public void generateMatchResults() {
+    @Override
+    public void generate() {
         generateMatchResultsGroupA();
         generateMatchResultsGroupB();
         generateMatchResultsGroupC();

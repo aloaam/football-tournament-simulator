@@ -1,22 +1,23 @@
-package com.example.footballtournamentsimulator.team;
+package com.example.footballtournamentsimulator.points;
 
 import com.example.footballtournamentsimulator.match.Match;
 import com.example.footballtournamentsimulator.match.MatchPoints;
 import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchResult;
+import com.example.footballtournamentsimulator.team.Team;
+import com.example.footballtournamentsimulator.team.TeamRepository;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.example.footballtournamentsimulator.match.MatchResult.*;
-import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.A;
-import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.C;
 
 @Slf4j
-public class TeamPointsUpdater {
+public class TeamPointsUpdater implements PointsUpdater {
 
     private final TeamRepository teamRepository;
     private final MatchRepository matchRepository;
@@ -30,8 +31,9 @@ public class TeamPointsUpdater {
         this.tournamentGroupRepository = tournamentGroupRepository;
     }
 
-    public void updatePoints() {
-        updatePointsForGroups(List.of(A, C));
+    @Override
+    public void update() {
+        updatePointsForGroups(Arrays.stream(TournamentGroupName.values()).toList());
     }
 
     private void updatePointsForGroups(List<TournamentGroupName> groupNames) {

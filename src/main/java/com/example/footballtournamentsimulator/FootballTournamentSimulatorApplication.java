@@ -1,12 +1,14 @@
 
 package com.example.footballtournamentsimulator;
 
-import com.example.footballtournamentsimulator.match.MatchGenerator;
+import com.example.footballtournamentsimulator.datagenerator.FootballDataGenerator;
+import com.example.footballtournamentsimulator.datagenerator.MatchGenerator;
+import com.example.footballtournamentsimulator.datagenerator.MatchResultsGenerator;
+import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGenerator;
 import com.example.footballtournamentsimulator.match.MatchRepository;
-import com.example.footballtournamentsimulator.match.MatchResultsGenerator;
-import com.example.footballtournamentsimulator.team.TeamPointsUpdater;
+import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
 import com.example.footballtournamentsimulator.team.TeamRepository;
-import com.example.footballtournamentsimulator.tournamentgroup.*;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -24,25 +26,27 @@ public class FootballTournamentSimulatorApplication {
             TeamRepository teamRepository,
             MatchRepository matchRepository,
             TournamentGroupRepository tournamentGroupRepository
-            ) {
+    ) {
         return args -> {
 
-            TournamentGroupGenerator tournamentGroupGenerator = new TournamentGroupGenerator(teamRepository);
-            tournamentGroupGenerator.generateTournamentGroups();
-
-            MatchGenerator matchGenerator = new MatchGenerator(matchRepository, teamRepository, tournamentGroupRepository);
-            matchGenerator.generateMatches();
-
-            MatchResultsGenerator matchResultsGenerator = new MatchResultsGenerator(teamRepository, matchRepository);
-            matchResultsGenerator.generateMatchResults();
-
-            TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(teamRepository, matchRepository, tournamentGroupRepository);
-            teamPointsUpdater.updatePoints();
-
-            final TournamentGroupVisualizer tournamentGroupVisualizer = new TournamentGroupVisualizer(teamRepository, tournamentGroupRepository);
-            tournamentGroupVisualizer.getGroupsPointsBy(TournamentGroupName.A).forEach(System.out::println);
+            generateData(teamRepository, matchRepository, tournamentGroupRepository);
+            updatePoints(teamRepository, matchRepository, tournamentGroupRepository);
 
         };
 
+    }
+
+    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
+        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(teamRepository, matchRepository, tournamentGroupRepository);
+        teamPointsUpdater.update();
+    }
+
+    private void generateData(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
+        MatchGenerator matchGenerator = new MatchGenerator(matchRepository, teamRepository, tournamentGroupRepository);
+        MatchResultsGenerator matchResultsGenerator = new MatchResultsGenerator(teamRepository, matchRepository);
+        TournamentGroupGenerator tournamentGroupGenerator = new TournamentGroupGenerator(teamRepository);
+
+        final FootballDataGenerator footballDataGenerator = new FootballDataGenerator(matchGenerator, matchResultsGenerator, tournamentGroupGenerator);
+        footballDataGenerator.generate();
     }
 }

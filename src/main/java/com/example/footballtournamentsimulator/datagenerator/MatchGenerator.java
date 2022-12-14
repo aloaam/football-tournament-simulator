@@ -1,5 +1,7 @@
-package com.example.footballtournamentsimulator.match;
+package com.example.footballtournamentsimulator.datagenerator;
 
+import com.example.footballtournamentsimulator.match.Match;
+import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.team.Team;
 import com.example.footballtournamentsimulator.team.TeamRepository;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
@@ -11,7 +13,7 @@ import static com.example.footballtournamentsimulator.team.TeamName.*;
 import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.*;
 
 @SuppressWarnings("DuplicatedCode")
-public class MatchGenerator {
+public class MatchGenerator implements DataGenerator {
 
     private final MatchRepository matchRepository;
     private final TeamRepository teamRepository;
@@ -23,14 +25,15 @@ public class MatchGenerator {
         this.tournamentGroupRepository = tournamentGroupRepository;
     }
 
-    public void generateMatches() {
+    @Override
+    public void generate() {
         generateMatchesGroupA();
         generateMatchesGroupB();
         generateMatchesGroupC();
+        generateMatchesGroupG();
         generateMatchesGroupD();
         generateMatchesGroupE();
         generateMatchesGroupF();
-        generateMatchesGroupG();
         generateMatchesGroupH();
     }
 
