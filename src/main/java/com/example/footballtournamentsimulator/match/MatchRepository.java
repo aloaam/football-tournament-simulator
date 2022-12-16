@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
+
+    @Query(value = "SELECT m FROM Match m")
+    List<Match> fetchAllMatches();
+
     @Query(value = "SELECT m FROM Match m WHERE m.tournamentGroup.id = :tournamentGroupId")
     List<Match> getMatchesByGroup(@Param("tournamentGroupId") long tournamentGroupId);
 

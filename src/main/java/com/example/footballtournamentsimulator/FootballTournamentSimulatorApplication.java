@@ -6,8 +6,10 @@ import com.example.footballtournamentsimulator.datagenerator.MatchGenerator;
 import com.example.footballtournamentsimulator.datagenerator.MatchResultsGenerator;
 import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGenerator;
 import com.example.footballtournamentsimulator.match.MatchRepository;
+import com.example.footballtournamentsimulator.match.MatchService;
 import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
 import com.example.footballtournamentsimulator.team.TeamRepository;
+import com.example.footballtournamentsimulator.team.TeamService;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,16 +30,14 @@ public class FootballTournamentSimulatorApplication {
             TournamentGroupRepository tournamentGroupRepository
     ) {
         return args -> {
-
             generateData(teamRepository, matchRepository, tournamentGroupRepository);
-            updatePoints(teamRepository, matchRepository, tournamentGroupRepository);
-
+            updatePoints(teamRepository, matchRepository);
         };
 
     }
 
-    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
-        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(teamRepository, matchRepository, tournamentGroupRepository);
+    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository) {
+        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(matchRepository, new TeamService(teamRepository, new MatchService()));
         teamPointsUpdater.update();
     }
 

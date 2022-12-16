@@ -1,90 +1,29 @@
 package com.example.footballtournamentsimulator.points;
 
-import com.example.footballtournamentsimulator.match.Match;
-import com.example.footballtournamentsimulator.match.MatchPoints;
 import com.example.footballtournamentsimulator.match.MatchRepository;
-import com.example.footballtournamentsimulator.match.MatchResult;
-import com.example.footballtournamentsimulator.team.Team;
-import com.example.footballtournamentsimulator.team.TeamRepository;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
+import com.example.footballtournamentsimulator.team.TeamService;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static com.example.footballtournamentsimulator.match.MatchResult.*;
 
 @Slf4j
 public class TeamPointsUpdater implements PointsUpdater {
 
-    private final TeamRepository teamRepository;
     private final MatchRepository matchRepository;
-    private final TournamentGroupRepository tournamentGroupRepository;
+    private final TeamService teamService;
 
 
-    //TODO: Alo - check names, refactor the things that check the home and away team wins.
-    public TeamPointsUpdater(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
-        this.teamRepository = teamRepository;
+    public TeamPointsUpdater(MatchRepository matchRepository, TeamService teamService) {
         this.matchRepository = matchRepository;
-        this.tournamentGroupRepository = tournamentGroupRepository;
+        this.teamService = teamService;
     }
 
+    /**
+     * Updates all matches
+     */
     @Override
     public void update() {
-        updatePointsForGroups(Arrays.stream(TournamentGroupName.values()).toList());
+        matchRepository.fetchAllMatches()
+                .forEach(teamService::updatePointsFor);
     }
 
-    private void updatePointsForGroups(List<TournamentGroupName> groupNames) {
-        groupNames.forEach(this::updateGroupPoints);
-    }
 
-    private void updateGroupPoints(TournamentGroupName groupName) {
-        TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(groupName);
-        List<Match> matches = matchRepository.getMatchesByGroup(group.getId());
-        matches.forEach(this::updatePoints);
-    }
-
-    private void updatePoints(Match match) {
-        MatchResult matchResult = evaluateMatchResult(match);
-        Team homeTeam = match.getHomeTeam();
-        Team awayTeam = match.getAwayTeam();
-
-        if (matchResult.equals(HOME_TEAM_WIN)) {
-            updatePointsForAWin(homeTeam);
-            return;
-        }
-        if (matchResult.equals(AWAY_TEAM_WIN)) {
-            updatePointsForAWin(awayTeam);
-            return;
-        }
-        if (matchResult.equals(TIE)) {
-            updatePointsForTie(homeTeam, awayTeam);
-        }
-    }
-
-    private void updatePointsForAWin(Team team) {
-        int currentPoints = teamRepository.getPointsByTeamId(team.getId());
-        final int newPoints = currentPoints + MatchPoints.WIN.points;
-        teamRepository.updateTeamPoints(newPoints, team.getId());
-    }
-
-    private void updatePointsForTie(Team homeTeam, Team awayTeam) {
-        int pointsForTie = MatchPoints.TIE.points;
-
-        int homeTeamCurrentPoints = teamRepository.getPointsByTeamId(homeTeam.getId());
-        int awayTeamCurrentPoints = teamRepository.getPointsByTeamId(awayTeam.getId());
-        teamRepository.updateTeamPoints(homeTeamCurrentPoints + pointsForTie, homeTeam.getId());
-        teamRepository.updateTeamPoints(awayTeamCurrentPoints + pointsForTie, awayTeam.getId());
-    }
-
-    private MatchResult evaluateMatchResult(Match match) {
-        int homeTeamGoals = match.getHomeTeamGoals();
-        int awayTeamGoals = match.getAwayTeamGoals();
-
-        if (homeTeamGoals > awayTeamGoals) return HOME_TEAM_WIN;
-        if (awayTeamGoals > homeTeamGoals) return AWAY_TEAM_WIN;
-        return TIE;
-    }
 }
