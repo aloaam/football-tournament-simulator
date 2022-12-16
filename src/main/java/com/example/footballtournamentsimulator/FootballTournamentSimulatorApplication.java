@@ -5,6 +5,7 @@ import com.example.footballtournamentsimulator.datagenerator.FootballDataGenerat
 import com.example.footballtournamentsimulator.datagenerator.MatchGenerator;
 import com.example.footballtournamentsimulator.datagenerator.MatchResultsGenerator;
 import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGenerator;
+import com.example.footballtournamentsimulator.exporter.CsvFileExporter;
 import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchService;
 import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
@@ -31,14 +32,17 @@ public class FootballTournamentSimulatorApplication {
     ) {
         return args -> {
             generateData(teamRepository, matchRepository, tournamentGroupRepository);
-            updatePoints(teamRepository, matchRepository);
+            updatePoints(teamRepository, matchRepository, tournamentGroupRepository);
+
+            new CsvFileExporter(new TeamService(teamRepository, new MatchService(), tournamentGroupRepository)).export();
         };
+
 
     }
 
-    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository) {
-        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(matchRepository, new TeamService(teamRepository, new MatchService()));
-        teamPointsUpdater.update();
+    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
+        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(matchRepository, new TeamService(teamRepository, new MatchService(), tournamentGroupRepository));
+        teamPointsUpdater.update(2);
     }
 
     private void generateData(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {

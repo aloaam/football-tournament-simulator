@@ -10,9 +10,17 @@ import java.util.List;
 
 public interface MatchRepository extends JpaRepository<Match, Long> {
 
-
     @Query(value = "SELECT m FROM Match m")
     List<Match> fetchAllMatches();
+
+    /**
+     * Fetches all matches up to the given match-day.
+     *
+     * @param matchDay ceiling (inclusive)
+     * @return list of matches from day 1 to matchDay inclusive.
+     */
+    @Query(value = "SELECT m FROM Match m WHERE m.matchDay <= :matchDay")
+    List<Match> fetchMatchesUpToMatchDay(@Param("matchDay") int matchDay);
 
     @Query(value = "SELECT m FROM Match m WHERE m.tournamentGroup.id = :tournamentGroupId")
     List<Match> getMatchesByGroup(@Param("tournamentGroupId") long tournamentGroupId);

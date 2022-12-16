@@ -26,7 +26,7 @@ public class TournamentGroupController {
     public List<Team> getGroupDataOrderedByPoints() {
         return groupRepository.getAllGroups()
                 .stream()
-                .map(group -> teamRepository.getTeamByTournamentGroupId(group.getId(), Sort.by("points").descending()))
+                .map(group -> teamRepository.getTeamsByTournamentGroupId(group.getId(), Sort.by("points").descending()))
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
     }

@@ -4,8 +4,11 @@ import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.team.TeamService;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * This component updates the points of the teams for different match days.
+ */
 @Slf4j
-public class TeamPointsUpdater implements PointsUpdater {
+public class TeamPointsUpdater {
 
     private final MatchRepository matchRepository;
     private final TeamService teamService;
@@ -17,13 +20,20 @@ public class TeamPointsUpdater implements PointsUpdater {
     }
 
     /**
-     * Updates all matches
+     * Update the points of the teams given all the available match-days.
      */
-    @Override
     public void update() {
         matchRepository.fetchAllMatches()
                 .forEach(teamService::updatePointsFor);
     }
 
+    /**
+     * Updates the points of the teams up to the given match-day (inclusive).
+     *
+     * @param matchDay ceiling match day.
+     */
+    public void update(int matchDay) {
+        matchRepository.fetchMatchesUpToMatchDay(matchDay).forEach(teamService::updatePointsFor);
+    }
 
 }

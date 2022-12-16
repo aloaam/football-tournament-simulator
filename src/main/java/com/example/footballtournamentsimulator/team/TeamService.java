@@ -4,7 +4,12 @@ import com.example.footballtournamentsimulator.match.Match;
 import com.example.footballtournamentsimulator.match.MatchPoints;
 import com.example.footballtournamentsimulator.match.MatchResult;
 import com.example.footballtournamentsimulator.match.MatchService;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.example.footballtournamentsimulator.match.MatchResult.*;
 
@@ -13,10 +18,12 @@ public class TeamService {
 
     private final TeamRepository repository;
     private final MatchService matchService;
+    private final TournamentGroupRepository groupRepository;
 
-    public TeamService(TeamRepository repository, MatchService matchService) {
+    public TeamService(TeamRepository repository, MatchService matchService, TournamentGroupRepository groupRepository) {
         this.repository = repository;
         this.matchService = matchService;
+        this.groupRepository = groupRepository;
     }
 
     /**
@@ -50,4 +57,13 @@ public class TeamService {
     public void updateTeamPoints(Team team, int pointsToAdd) {
         repository.updateTeamPoints(pointsToAdd, team.getId());
     }
+
+    public List<Team> getGroupDataOrderedByPoints() {
+        return groupRepository.getAllGroups()
+                .stream()
+                .map(group -> repository.getTeamsByTournamentGroupId(group.getId(), Sort.by("points").descending()))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
+
 }
