@@ -21,6 +21,4 @@ public class MatchService {
         if (awayTeamGoals > homeTeamGoals) return AWAY_TEAM_WIN;
         return TIE;
     }
-
-
 }
