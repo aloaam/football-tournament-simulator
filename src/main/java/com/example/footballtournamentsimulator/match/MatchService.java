@@ -21,4 +21,8 @@ public class MatchService {
         if (awayTeamGoals > homeTeamGoals) return AWAY_TEAM_WIN;
         return TIE;
     }
+
+//    public int getNextMatchDay() {
+//        String name = MAX_MATCH_DAY.MAX_MATCH_DAY.name();//TODO: ALO -
+//    }
 }
