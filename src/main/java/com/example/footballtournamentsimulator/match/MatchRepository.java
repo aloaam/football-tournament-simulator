@@ -22,8 +22,8 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     @Query(value = "SELECT m FROM Match m WHERE m.matchDay <= :matchDay")
     List<Match> fetchMatchesUpToMatchDay(@Param("matchDay") int matchDay);
 
-    @Query(value = "SELECT m FROM Match m WHERE m.matchDay = :matchDay")
-    List<Match> fetchMatchesByMatchDay(@Param("matchDay") int matchDay);
+    @Query(value = "SELECT m FROM Match m WHERE m.matchDay = :matchDay AND m.tournamentGroup.id = :groupId")
+    List<Match> fetchMatchesByMatchDayAndGroupId(@Param("matchDay") int matchDay, @Param("groupId") long groupId);
 
     @Modifying
     @Transactional

@@ -28,9 +28,17 @@ public class TeamForSimulationService {
     public List<TeamForSimulation> convertTeams(List<Team> teams) {
         return teams.stream()
                 .map(team -> new TeamForSimulation(
+                        team.getId(),
                         team.getPoints(),
                         team.getTeamName().name(),
                         team.getTournamentGroupId().getId()))
                 .collect(Collectors.toList());
+    }
+
+    public TeamForSimulation convertTeam(Team team) {
+        return new TeamForSimulation(team.getId(),
+                team.getPoints(),
+                team.getTeamName().name(),
+                team.getId());
     }
 }
