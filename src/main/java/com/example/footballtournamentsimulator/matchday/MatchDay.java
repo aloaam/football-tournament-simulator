@@ -39,8 +39,4 @@ public record MatchDay(TournamentGroup group, Match match1, Match match2, int ma
         return new MatchDay(match0.getTournamentGroup(), match0, match1, matchDay0);
     }
 
-    public List<Match> getMatches() {
-        return List.of(match1, match2);
-    }
-
 }
