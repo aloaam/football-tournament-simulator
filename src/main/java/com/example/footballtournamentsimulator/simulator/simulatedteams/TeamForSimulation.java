@@ -1,6 +1,5 @@
 package com.example.footballtournamentsimulator.simulator.simulatedteams;
 
-import com.example.footballtournamentsimulator.match.MatchPoints;
 import lombok.Getter;
 
 /**
@@ -22,7 +21,7 @@ public class TeamForSimulation {
         this.tournamentGroupId = tournamentGroupId;
     }
 
-    public void updatePoints(MatchPoints matchPoints) {
-        this.points = points + matchPoints.points;
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

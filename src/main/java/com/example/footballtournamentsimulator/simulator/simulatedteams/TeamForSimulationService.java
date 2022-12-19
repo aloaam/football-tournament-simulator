@@ -1,5 +1,6 @@
 package com.example.footballtournamentsimulator.simulator.simulatedteams;
 
+import com.example.footballtournamentsimulator.match.MatchPoints;
 import com.example.footballtournamentsimulator.team.Team;
 import com.example.footballtournamentsimulator.team.TeamRepository;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
@@ -17,6 +18,10 @@ public class TeamForSimulationService {
     public TeamForSimulationService(TournamentGroupRepository groupRepository, TeamRepository teamRepository) {
         this.groupRepository = groupRepository;
         this.teamRepository = teamRepository;
+    }
+
+    public void updatePoints(TeamForSimulation team, MatchPoints matchPoints) {
+        team.setPoints(team.getPoints() + matchPoints.points);
     }
 
     public List<TeamForSimulation> getTeamsByGroupName(TournamentGroupName groupName) {

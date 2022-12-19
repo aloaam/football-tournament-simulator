@@ -1,8 +1,8 @@
 package com.example.footballtournamentsimulator.team;
 
 import com.example.footballtournamentsimulator.match.Match;
+import com.example.footballtournamentsimulator.match.MatchOutcome;
 import com.example.footballtournamentsimulator.match.MatchPoints;
-import com.example.footballtournamentsimulator.match.MatchResult;
 import com.example.footballtournamentsimulator.match.MatchService;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import org.springframework.data.domain.Sort;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.footballtournamentsimulator.match.MatchResult.*;
+import static com.example.footballtournamentsimulator.match.MatchOutcome.*;
 
 @Service
 public class TeamService {
@@ -32,7 +32,7 @@ public class TeamService {
      * @param match from which the teams' points will be updated.
      */
     public void updatePointsFor(Match match) {
-        final MatchResult matchResult = matchService.getMatchResult(match);
+        final MatchOutcome matchOutcome = matchService.getMatchResult(match);
         final Team homeTeam = match.getHomeTeam();
         final Team awayTeam = match.getAwayTeam();
         final int pointsForAWin = MatchPoints.WIN.points;
@@ -40,15 +40,15 @@ public class TeamService {
         final int homeTeamPoints = repository.getPointsByTeamId(homeTeam.getId());
         final int awayTeamPoints = repository.getPointsByTeamId(awayTeam.getId());
 
-        if (matchResult.equals(HOME_TEAM_WIN)) {
+        if (matchOutcome.equals(HOME_TEAM_WIN)) {
             updateTeamPoints(homeTeam, homeTeamPoints + pointsForAWin);
             return;
         }
-        if (matchResult.equals(AWAY_TEAM_WIN)) {
+        if (matchOutcome.equals(AWAY_TEAM_WIN)) {
             updateTeamPoints(awayTeam, awayTeamPoints + pointsForAWin);
             return;
         }
-        if (matchResult.equals(TIE)) {
+        if (matchOutcome.equals(TIE)) {
             updateTeamPoints(homeTeam, homeTeamPoints + pointsForATie);
             updateTeamPoints(awayTeam, awayTeamPoints + pointsForATie);
         }

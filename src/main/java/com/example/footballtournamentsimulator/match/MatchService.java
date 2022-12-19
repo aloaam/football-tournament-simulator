@@ -2,7 +2,7 @@ package com.example.footballtournamentsimulator.match;
 
 import org.springframework.stereotype.Service;
 
-import static com.example.footballtournamentsimulator.match.MatchResult.*;
+import static com.example.footballtournamentsimulator.match.MatchOutcome.*;
 
 @Service
 public class MatchService {
@@ -13,7 +13,7 @@ public class MatchService {
      * @param match for which the result will be evaluated.
      * @return the corresponding MatchResult.
      */
-    public MatchResult getMatchResult(Match match) {
+    public MatchOutcome getMatchResult(Match match) {
         int homeTeamGoals = match.getHomeTeamGoals();
         int awayTeamGoals = match.getAwayTeamGoals();
 

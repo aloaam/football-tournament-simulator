@@ -8,14 +8,21 @@ import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGene
 import com.example.footballtournamentsimulator.exporter.CsvFileExporter;
 import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchService;
+import com.example.footballtournamentsimulator.matchday.MatchDayService;
 import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
+import com.example.footballtournamentsimulator.simulator.MatchDaySimulator;
+import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
+import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
 import com.example.footballtournamentsimulator.team.TeamRepository;
 import com.example.footballtournamentsimulator.team.TeamService;
+import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
 import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import java.io.IOException;
 
 @SpringBootApplication
 public class FootballTournamentSimulatorApplication {
@@ -28,16 +35,24 @@ public class FootballTournamentSimulatorApplication {
     public CommandLineRunner commandLineRunner(
             TeamRepository teamRepository,
             MatchRepository matchRepository,
-            TournamentGroupRepository tournamentGroupRepository
+            TournamentGroupRepository groupRepository
     ) {
         return args -> {
-            generateData(teamRepository, matchRepository, tournamentGroupRepository);
-            updatePoints(teamRepository, matchRepository, tournamentGroupRepository);
+            generateData(teamRepository, matchRepository, groupRepository);
+            updatePoints(teamRepository, matchRepository, groupRepository);
 
-            new CsvFileExporter(new TeamService(teamRepository, new MatchService(), tournamentGroupRepository)).export();
+            final MatchDaySimulator matchDaySimulator = new MatchDaySimulator(new PossibleMatchOutcomesService(),
+                    new TeamForSimulationService(groupRepository, teamRepository),
+                    new MatchDayService(groupRepository, matchRepository));
+
+            matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, 3);
         };
 
 
+    }
+
+    private void exportCsv(TeamRepository teamRepository, TournamentGroupRepository tournamentGroupRepository) throws IOException {
+        new CsvFileExporter(new TeamService(teamRepository, new MatchService(), tournamentGroupRepository)).export();
     }
 
     private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {

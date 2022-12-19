@@ -1,6 +1,6 @@
 package com.example.footballtournamentsimulator.simulator.outcomes;
 
-import com.example.footballtournamentsimulator.match.MatchResult;
+import com.example.footballtournamentsimulator.match.MatchOutcome;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,11 +11,11 @@ public class PossibleMatchOutcomesService {
     /**
      * @return the nine possible outcomes for a match day with two matches per group.
      */
-    public List<PossibleMatchOutcomes> getAllPossibleOutcomesForADayMatch() {
-        return Stream.of(MatchResult.values())
+    public List<PossibleGroupOutcomes> getAllPossibleOutcomesForADayMatch() {
+        return Stream.of(MatchOutcome.values())
                 .map(match1Result ->
-                        Stream.of(MatchResult.values()).
-                                map(match2Result -> new PossibleMatchOutcomes(match1Result, match2Result))
+                        Stream.of(MatchOutcome.values()).
+                                map(match2Result -> new PossibleGroupOutcomes(match1Result, match2Result))
                                 .collect(Collectors.toList()))
                 .flatMap(List::stream)
                 .collect(Collectors.toList());

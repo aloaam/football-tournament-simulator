@@ -1,10 +1,10 @@
 package com.example.footballtournamentsimulator.simulator;
 
-import com.example.footballtournamentsimulator.match.MatchResult;
+import com.example.footballtournamentsimulator.match.MatchOutcome;
 import com.example.footballtournamentsimulator.matchday.HomeAwayMatchesFromMatchDay;
 import com.example.footballtournamentsimulator.matchday.MatchDay;
 import com.example.footballtournamentsimulator.matchday.MatchDayService;
-import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomes;
+import com.example.footballtournamentsimulator.simulator.outcomes.PossibleGroupOutcomes;
 import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulation;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
@@ -28,42 +28,44 @@ public class MatchDaySimulator {
     }
 
 
-    public List<TeamForSimulation> getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName groupName, int matchDay) {
+    public HomeAwayMatchesFromMatchDaySimulator getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName groupName, int matchDay) {
 
         final MatchDay matches = service.getMatchDayByGroupAndId(groupName, matchDay);
-        final List<PossibleMatchOutcomes> possibleOutcomes = possibleMatchOutcomesService.getAllPossibleOutcomesForADayMatch();
+        final List<PossibleGroupOutcomes> possibleOutcomes = possibleMatchOutcomesService.getAllPossibleOutcomesForADayMatch();
 
 
-        for (PossibleMatchOutcomes outcome : possibleOutcomes) {
+        final HomeAwayMatchesFromMatchDay homeAwayMatches = new HomeAwayMatchesFromMatchDay(matches);
+        final HomeAwayMatchesFromMatchDaySimulator homeAndAwayTeams = new HomeAwayMatchesFromMatchDaySimulator(homeAwayMatches, teamForSimulationService);
 
-
-            final HomeAwayMatchesFromMatchDay homeAwayMatches = new HomeAwayMatchesFromMatchDay(matches);
-            final HomeAwayMatchesFromMatchDaySimulator m = new HomeAwayMatchesFromMatchDaySimulator(homeAwayMatches, teamForSimulationService);//TODO: Alo - change variable
-
-            //-----
-            final MatchResult matchResult1 = outcome.result1();
-            final MatchResult matchResult2 = outcome.result2();
-
-
-            if (matchResult1.equals(MatchResult.HOME_TEAM_WIN)) {
-                m.getMatch1HomeTeam().updatePoints(WIN);
-            }
-
-            if (matchResult1.equals(MatchResult.AWAY_TEAM_WIN)) {
-                m.getMatch1AwayTeam().updatePoints(WIN);
-            }
-
-            if (matchResult1.equals(MatchResult.TIE)) {
-                m.getMatch2AwayTeam().updatePoints(TIE);
-                m.getMatch2HomeTeam().updatePoints(TIE);
-            }
-
-
-        }
-
-
-        return null; //TODO: ALO -
+        possibleOutcomes
+                .forEach(outcome -> updatePoints(outcome, homeAndAwayTeams));
+        return homeAndAwayTeams;
 
     }
+
+    //TODO: Alo - te quedaste aquí, el grupo C está mal, porque polonia, aparece como que gana el último partido.
+//        aparte, hay que ver como regresar un alista de partidos, con todos los outcomes.
+
+    private void updatePoints(PossibleGroupOutcomes outcomes, HomeAwayMatchesFromMatchDaySimulator homeAwayMatches) {
+        updatePointsSingleMatch(outcomes.outcome1(), homeAwayMatches.getMatch1HomeTeam(), homeAwayMatches.getMatch1AwayTeam());
+        updatePointsSingleMatch(outcomes.outcome2(), homeAwayMatches.getMatch2HomeTeam(), homeAwayMatches.getMatch2AwayTeam());
+    }
+
+    private void updatePointsSingleMatch(MatchOutcome outcome, TeamForSimulation homeTeam, TeamForSimulation awayTeam) {
+
+        if (outcome.equals(MatchOutcome.HOME_TEAM_WIN)) {
+            teamForSimulationService.updatePoints(homeTeam, WIN);
+            return;
+        }
+        if (outcome.equals(MatchOutcome.AWAY_TEAM_WIN)) {
+            teamForSimulationService.updatePoints(awayTeam, WIN);
+            return;
+        }
+        if (outcome.equals(MatchOutcome.TIE)) {
+            teamForSimulationService.updatePoints(homeTeam, TIE);
+            teamForSimulationService.updatePoints(awayTeam, TIE);
+        }
+    }
+
 
 }
