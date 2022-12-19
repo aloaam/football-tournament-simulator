@@ -9,6 +9,8 @@ public record HomeAwayMatchesFromMatchDaySimulator(
         TeamForSimulation match2HomeTeam,
         TeamForSimulation match2AwayTeam) {
 
+    //TODO: ALO - create another object to hold the outcome and the matches. Or maybe in this same one, bu
+    // the one which is not for simulation, shouldnt have it.
     @Override
     public String toString() {
         return "Group: ..." + "\n" +
