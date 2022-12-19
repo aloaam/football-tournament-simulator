@@ -6,6 +6,9 @@ import com.example.footballtournamentsimulator.team.TeamRepository;
 
 import static com.example.footballtournamentsimulator.team.TeamName.*;
 
+
+//TODO: ALO - create triple key for the match table, match-day, home-team, away team
+//TODO: ALO - factor out
 public class MatchResultsGenerator implements DataGenerator {
 
     private final TeamRepository teamRepository;
@@ -66,10 +69,10 @@ public class MatchResultsGenerator implements DataGenerator {
 
         matchRepository.updatePoints(arg.getId(), sau.getId(), 1, 2);
         matchRepository.updatePoints(mex.getId(), pol.getId(), 0, 0);
+        matchRepository.updatePoints(pol.getId(), sau.getId(), 2, 0);
         matchRepository.updatePoints(arg.getId(), mex.getId(), 2, 0);
-        matchRepository.updatePoints(sau.getId(), pol.getId(), 0, 2);
-        matchRepository.updatePoints(arg.getId(), pol.getId(), 2, 0);
-        matchRepository.updatePoints(mex.getId(), sau.getId(), 2, 1);
+        matchRepository.updatePoints(pol.getId(), arg.getId(), 0, 2);
+        matchRepository.updatePoints(sau.getId(), mex.getId(), 1, 2);
 
     }
 

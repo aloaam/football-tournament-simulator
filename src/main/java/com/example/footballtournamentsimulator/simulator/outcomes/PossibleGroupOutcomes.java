@@ -4,6 +4,7 @@ import com.example.footballtournamentsimulator.match.MatchOutcome;
 
 import java.util.List;
 
+//TODO: ALO - change name to outcomeForMatch1, and ...2
 /**
  * Holds the possible outcomes for a match day with two matches.
  *

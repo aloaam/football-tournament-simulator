@@ -92,10 +92,10 @@ public class MatchGenerator implements DataGenerator {
                 List.of(
                         new Match(arg, sau, group, 1),
                         new Match(mex, pol, group, 1),
+                        new Match(pol, sau, group, 2),
                         new Match(arg, mex, group, 2),
-                        new Match(sau, pol, group, 2),
-                        new Match(arg, pol, group, 3),
-                        new Match(mex, sau, group, 3)
+                        new Match(pol, arg, group, 3),
+                        new Match(sau, mex, group, 3)
                 )
         );
     }

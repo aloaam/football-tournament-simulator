@@ -1,22 +1,22 @@
 package com.example.footballtournamentsimulator.simulator;
 
-import com.example.footballtournamentsimulator.matchday.HomeAwayMatchesFromMatchDay;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulation;
-import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
-import lombok.Getter;
 
-@Getter
-public class HomeAwayMatchesFromMatchDaySimulator {
+public record HomeAwayMatchesFromMatchDaySimulator(
 
-    private final TeamForSimulation match1HomeTeam;
-    private final TeamForSimulation match1AwayTeam;
-    private final TeamForSimulation match2HomeTeam;
-    private final TeamForSimulation match2AwayTeam;
+        TeamForSimulation match1HomeTeam,
+        TeamForSimulation match1AwayTeam,
+        TeamForSimulation match2HomeTeam,
+        TeamForSimulation match2AwayTeam) {
 
-    public HomeAwayMatchesFromMatchDaySimulator(HomeAwayMatchesFromMatchDay matches, TeamForSimulationService service) {
-        this.match1HomeTeam = service.convertTeam(matches.getMatch1HomeTeam());
-        this.match1AwayTeam = service.convertTeam(matches.getMatch1AwayTeam());
-        this.match2HomeTeam = service.convertTeam(matches.getMatch2HomeTeam());
-        this.match2AwayTeam = service.convertTeam(matches.getMatch2AwayTeam());
+    @Override
+    public String toString() {
+        return "Group: ..." + "\n" +
+                "Outcome Match 1: ..." + "\n" +
+                "Outcome Match 2: ..." + "\n" +
+                "match1HomeTeam=" + match1HomeTeam + "\n" +
+                "match1AwayTeam=" + match1AwayTeam + "\n" +
+                "match2HomeTeam=" + match2HomeTeam + "\n" +
+                "match2AwayTeam=" + match2AwayTeam + "\n";
     }
 }

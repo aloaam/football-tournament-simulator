@@ -10,6 +10,8 @@ import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchService;
 import com.example.footballtournamentsimulator.matchday.MatchDayService;
 import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
+import com.example.footballtournamentsimulator.simulator.HomeAwayMatchesFromMatchDaySimulator;
+import com.example.footballtournamentsimulator.simulator.HomeAwayMatchesFromMatchDaySimulatorService;
 import com.example.footballtournamentsimulator.simulator.MatchDaySimulator;
 import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
@@ -23,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
+import java.util.List;
 
 @SpringBootApplication
 public class FootballTournamentSimulatorApplication {
@@ -41,13 +44,16 @@ public class FootballTournamentSimulatorApplication {
             generateData(teamRepository, matchRepository, groupRepository);
             updatePoints(teamRepository, matchRepository, groupRepository);
 
+            TeamForSimulationService teamForSimulationService = new TeamForSimulationService(groupRepository, teamRepository);
             final MatchDaySimulator matchDaySimulator = new MatchDaySimulator(new PossibleMatchOutcomesService(),
-                    new TeamForSimulationService(groupRepository, teamRepository),
-                    new MatchDayService(groupRepository, matchRepository));
+                    teamForSimulationService,
+                    new MatchDayService(groupRepository, matchRepository),
+                    new HomeAwayMatchesFromMatchDaySimulatorService(teamForSimulationService));
 
-            matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, 3);
+            List<HomeAwayMatchesFromMatchDaySimulator> simulations = matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, 3);
+        simulations.forEach(System.out::println);
+
         };
-
 
     }
 
