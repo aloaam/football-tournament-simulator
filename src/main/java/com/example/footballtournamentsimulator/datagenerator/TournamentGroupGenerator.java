@@ -36,50 +36,50 @@ public class TournamentGroupGenerator implements DataGenerator {
     private void generateTournamentGroupA() {
         final TournamentGroup group = new TournamentGroup(A);
         saveGroupInDb(List.of(
-                new Team(ECUADOR, group),
-                new Team(NETHERLANDS, group),
-                new Team(QATAR, group),
-                new Team(SENEGAL, group)
+                new Team(AJAX, group),
+                new Team(LIVERPOOL, group),
+                new Team(NAPOLI, group),
+                new Team(RANGERS, group)
         ));
     }
 
     private void generateTournamentGroupB() {
         final TournamentGroup group = new TournamentGroup(B);
         saveGroupInDb(List.of(
-                new Team(ENGLAND, group),
-                new Team(IRAN, group),
-                new Team(USA, group),
-                new Team(WALES, group)
+                new Team(ATLETICO_MADRID, group),
+                new Team(LEVERKUSEN, group),
+                new Team(CLUB_BRUGGE, group),
+                new Team(PORTO, group)
         ));
     }
 
     private void generateTournamentGroupC() {
         final TournamentGroup group = new TournamentGroup(C);
         saveGroupInDb(List.of(
-                new Team(ARGENTINA, group),
-                new Team(MEXICO, group),
-                new Team(POLAND, group),
-                new Team(SAUDI_ARABIA, group)
+                new Team(BAYERN_MUNICH, group),
+                new Team(INTER_MILAN, group),
+                new Team(FC_BARCELONA, group),
+                new Team(VIKTORIA_PLZEN, group)
         ));
     }
 
     private void generateTournamentGroupD() {
         final TournamentGroup group = new TournamentGroup(D);
         saveGroupInDb(List.of(
-                new Team(AUSTRALIA, group),
-                new Team(DENMARK, group),
-                new Team(FRANCE, group),
-                new Team(TUNISIA, group)
+                new Team(EINTRACHT_FRANKFURT, group),
+                new Team(MARSEILLE, group),
+                new Team(SPORTING_CP, group),
+                new Team(TOTTENHAM, group)
         ));
     }
 
     private void generateTournamentGroupE() {
         final TournamentGroup group = new TournamentGroup(E);
         saveGroupInDb(List.of(
-                new Team(COSTA_RICA, group),
-                new Team(GERMANY, group),
-                new Team(JAPAN, group),
-                new Team(SPAIN, group)
+                new Team(AC_MILAN, group),
+                new Team(CHELSEA, group),
+                new Team(DINAMO_ZAGREB, group),
+                new Team(SALZBURG, group)
         ));
 
     }
@@ -87,30 +87,30 @@ public class TournamentGroupGenerator implements DataGenerator {
     private void generateTournamentGroupF() {
         final TournamentGroup group = new TournamentGroup(F);
         saveGroupInDb(List.of(
-                new Team(BELGIUM, group),
-                new Team(CANADA, group),
-                new Team(CROATIA, group),
-                new Team(MOROCCO, group)
+                new Team(CELTIC, group),
+                new Team(RB_LEIPZIG, group),
+                new Team(REAL_MADRID, group),
+                new Team(SHAKHTAR_DONETSK, group)
         ));
     }
 
     private void generateTournamentGroupG() {
         final TournamentGroup group = new TournamentGroup(G);
         saveGroupInDb(List.of(
-                new Team(BRAZIL, group),
-                new Team(CAMEROON, group),
-                new Team(SERBIA, group),
-                new Team(SWITZERLAND, group)
+                new Team(COPENHAGEN, group),
+                new Team(DORTMUND, group),
+                new Team(MANCHESTER_CITY, group),
+                new Team(SEVILLA, group)
         ));
     }
 
     private void generateTournamentGroupH() {
         final TournamentGroup group = new TournamentGroup(H);
         saveGroupInDb(List.of(
-                new Team(GHANA, group),
-                new Team(PORTUGAL, group),
-                new Team(SOUTH_KOREA, group),
-                new Team(URUGUAY, group)
+                new Team(BENFICA, group),
+                new Team(JUVENTUS, group),
+                new Team(MACCABI_HAIFA, group),
+                new Team(PARIS_SAINT_GERMAIN, group)
         ));
     }
 

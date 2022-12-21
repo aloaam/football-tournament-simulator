@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.example.footballtournamentsimulator.match.MatchOutcome.*;
 
@@ -58,12 +57,11 @@ public class TeamService {
         repository.updateTeamPoints(pointsToAdd, team.getId());
     }
 
-    public List<Team> getGroupDataOrderedByPoints() {
+    public List<Team> getTeamsGroupedByTournamentGroup() {
         return groupRepository.getAllGroups()
                 .stream()
                 .map(group -> repository.getTeamsByTournamentGroupId(group.getId(), Sort.by("points").descending()))
                 .flatMap(List::stream)
-                .collect(Collectors.toList());
+                .toList();
     }
-
 }

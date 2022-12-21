@@ -1,4 +1,4 @@
-package com.example.footballtournamentsimulator.simulator;
+package com.example.footballtournamentsimulator.simulator.matchdaysimulator;
 
 import com.example.footballtournamentsimulator.match.MatchOutcome;
 import com.example.footballtournamentsimulator.matchday.GroupMatchSimulationService;

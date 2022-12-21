@@ -35,4 +35,5 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
                       @Param("homeTeamGoals") int homeTeamGoals,
                       @Param("awayTeamGoals") int awayTeamGoals);
 
+
 }

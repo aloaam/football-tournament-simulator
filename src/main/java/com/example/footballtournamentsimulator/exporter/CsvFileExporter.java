@@ -27,7 +27,7 @@ public class CsvFileExporter {
         final FileWriter writer = new FileWriter(report);
 
 
-        final List<Team> teams = teamService.getGroupDataOrderedByPoints();
+        final List<Team> teams = teamService.getTeamsGroupedByTournamentGroup();
         final CSVFormat csvFormat = CSVFormat.DEFAULT.withHeader(
                 Headers.GROUP.name(),
                 Headers.TEAM.name(),

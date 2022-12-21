@@ -1,45 +1,40 @@
 package com.example.footballtournamentsimulator.team;
 
-//TODO: ALO - remove unused names.
+//TODO: Alo - theres one extra, team here, but it is used
 public enum TeamName {
+    AC_MILAN,
     AJAX,
-    ATALANTA,
     ATLETICO_MADRID,
     BARCELONA,
-    BAYERN_LEVERKUSEN,
+    LEVERKUSEN,
     BAYERN_MUNICH,
     BENFICA,
-    BORUSSIA_MOENCHENGLADBACH,
+    CELTIC,
     CHELSEA,
     CLUB_BRUGGE,
+    COPENHAGEN,
+    DINAMO_ZAGREB,
     DORTMUND,
-    DYNAMO_KYIV,
+    EINTRACHT_FRANKFURT,
     FC_BARCELONA,
-    FC_PORTO,
     INTER_MILAN,
     JUVENTUS,
-    LAZIO,
-    LEICESTER_CITY,
-    LILLE,
     LIVERPOOL,
-    LOKOMOTIV_MOSCOW,
+    MACCABI_HAIFA,
     MANCHESTER_CITY,
-    MANCHESTER_UNITED,
     MARSEILLE,
-    MILAN,
-    MONACO,
     NAPOLI,
     PARIS_SAINT_GERMAIN,
     PORTO,
     RANGERS,
     RB_LEIPZIG,
     REAL_MADRID,
-    RENNES,
+    SALZBURG,
     SEVILLA,
     SHAKHTAR_DONETSK,
+    SPORTING_CP,
     TOTTENHAM,
     VIKTORIA_PLZEN
-
 
 
 }
