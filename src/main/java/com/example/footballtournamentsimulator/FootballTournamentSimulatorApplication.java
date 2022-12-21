@@ -44,7 +44,7 @@ public class FootballTournamentSimulatorApplication {
 
             final MatchService matchService = new MatchService();
 
-            final int matchDay = 0;
+            final int matchDay = 6;
             generateData(teamRepository, matchRepository, groupRepository);
             updatePoints(teamRepository, matchRepository, groupRepository, matchDay);
 
