@@ -1,8 +1,8 @@
 package com.example.footballtournamentsimulator.simulator.grroupmatchday;
 
-import com.example.footballtournamentsimulator.matchday.MatchDay;
-import com.example.footballtournamentsimulator.team.Team;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
+import com.example.footballtournamentsimulator.actualdata.matchday.MatchDay;
+import com.example.footballtournamentsimulator.actualdata.team.Team;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupName;
 import lombok.Getter;
 
 

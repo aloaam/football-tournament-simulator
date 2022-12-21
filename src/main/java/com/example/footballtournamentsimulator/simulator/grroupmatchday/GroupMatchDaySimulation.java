@@ -1,6 +1,6 @@
 package com.example.footballtournamentsimulator.simulator.grroupmatchday;
 
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupName;
 
 /**
  * This object holds the information the outcome of a simulation for one match-day.

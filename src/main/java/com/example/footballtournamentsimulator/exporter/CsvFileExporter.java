@@ -1,7 +1,7 @@
 package com.example.footballtournamentsimulator.exporter;
 
-import com.example.footballtournamentsimulator.team.Team;
-import com.example.footballtournamentsimulator.team.TeamService;
+import com.example.footballtournamentsimulator.actualdata.team.Team;
+import com.example.footballtournamentsimulator.actualdata.team.TeamService;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 

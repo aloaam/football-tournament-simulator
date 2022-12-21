@@ -5,7 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * This object mimics the {@link com.example.footballtournamentsimulator.team.Team}, but is used
+ * This object mimics the {@link com.example.footballtournamentsimulator.actualdata.team.Team}, but is used
  * in the simulator to avoid updating the DB.
  */
 @Getter

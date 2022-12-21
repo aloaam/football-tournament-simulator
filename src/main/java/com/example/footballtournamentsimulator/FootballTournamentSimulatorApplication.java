@@ -1,24 +1,27 @@
 
 package com.example.footballtournamentsimulator;
 
-import com.example.footballtournamentsimulator.datagenerator.FootballDataGenerator;
-import com.example.footballtournamentsimulator.datagenerator.MatchGenerator;
-import com.example.footballtournamentsimulator.datagenerator.MatchResultsGenerator;
-import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.TournamentDataGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.groupstage.GroupStageGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.groupstage.MatchGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.groupstage.MatchResultsGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.groupstage.TournamentGroupGenerator;
+import com.example.footballtournamentsimulator.actualdata.datagenerator.knockoutstage.KnockOutMatchGenerator;
+import com.example.footballtournamentsimulator.actualdata.knockoutmatch.KnockOutMatchRepository;
+import com.example.footballtournamentsimulator.actualdata.match.MatchRepository;
+import com.example.footballtournamentsimulator.actualdata.match.MatchService;
+import com.example.footballtournamentsimulator.actualdata.matchday.GroupMatchSimulationService;
+import com.example.footballtournamentsimulator.actualdata.matchday.MatchDayService;
+import com.example.footballtournamentsimulator.actualdata.points.TeamPointsUpdater;
+import com.example.footballtournamentsimulator.actualdata.team.TeamRepository;
+import com.example.footballtournamentsimulator.actualdata.team.TeamService;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupName;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupRepository;
 import com.example.footballtournamentsimulator.exporter.CsvFileExporter;
-import com.example.footballtournamentsimulator.match.MatchRepository;
-import com.example.footballtournamentsimulator.match.MatchService;
-import com.example.footballtournamentsimulator.matchday.GroupMatchSimulationService;
-import com.example.footballtournamentsimulator.matchday.MatchDayService;
-import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
 import com.example.footballtournamentsimulator.simulator.grroupmatchday.GroupMatchDaySimulation;
 import com.example.footballtournamentsimulator.simulator.matchdaysimulator.MatchDaySimulator;
 import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
-import com.example.footballtournamentsimulator.team.TeamRepository;
-import com.example.footballtournamentsimulator.team.TeamService;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,11 +41,16 @@ public class FootballTournamentSimulatorApplication {
     public CommandLineRunner commandLineRunner(
             TeamRepository teamRepository,
             MatchRepository matchRepository,
-            TournamentGroupRepository groupRepository
+            TournamentGroupRepository groupRepository,
+            KnockOutMatchRepository knockOutMatchRepository
     ) {
         return args -> {
 
-            final Repositories repos = new Repositories(teamRepository, matchRepository, groupRepository);
+            final Repositories repos = new Repositories(
+                    teamRepository,
+                    matchRepository,
+                    groupRepository,
+                    knockOutMatchRepository);
             final MatchService matchService = new MatchService();
 
             final int matchDay = 5;
@@ -88,12 +96,17 @@ public class FootballTournamentSimulatorApplication {
         MatchResultsGenerator matchResultsGenerator = new MatchResultsGenerator(repos.teamRepository, repos.matchRepository);
         TournamentGroupGenerator tournamentGroupGenerator = new TournamentGroupGenerator(repos.teamRepository);
 
-        final FootballDataGenerator footballDataGenerator = new FootballDataGenerator(matchGenerator, matchResultsGenerator, tournamentGroupGenerator);
-        footballDataGenerator.generate();
+
+        final GroupStageGenerator groupStageGenerator = new GroupStageGenerator(matchGenerator, matchResultsGenerator, tournamentGroupGenerator);
+        final KnockOutMatchGenerator knockOutMatchGenerator = new KnockOutMatchGenerator(repos.teamRepository, repos.knockOutMatchRepository);
+        final TournamentDataGenerator tournamentDataGenerator = new TournamentDataGenerator(groupStageGenerator, knockOutMatchGenerator);
+        tournamentDataGenerator.generate();
     }
 
-    private record Repositories(TeamRepository teamRepository, MatchRepository matchRepository,
-                                TournamentGroupRepository groupRepository) {
+    private record Repositories(TeamRepository teamRepository,
+                                MatchRepository matchRepository,
+                                TournamentGroupRepository groupRepository,
+                                KnockOutMatchRepository knockOutMatchRepository) {
     }
 
 }

@@ -1,9 +1,10 @@
 package com.example.footballtournamentsimulator.simulator.matchdaysimulator;
 
-import com.example.footballtournamentsimulator.match.MatchOutcome;
-import com.example.footballtournamentsimulator.matchday.GroupMatchSimulationService;
-import com.example.footballtournamentsimulator.matchday.MatchDay;
-import com.example.footballtournamentsimulator.matchday.MatchDayService;
+import com.example.footballtournamentsimulator.actualdata.match.MatchOutcome;
+import com.example.footballtournamentsimulator.actualdata.matchday.GroupMatchSimulationService;
+import com.example.footballtournamentsimulator.actualdata.matchday.MatchDay;
+import com.example.footballtournamentsimulator.actualdata.matchday.MatchDayService;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupName;
 import com.example.footballtournamentsimulator.simulator.grroupmatchday.GroupMatchDay;
 import com.example.footballtournamentsimulator.simulator.grroupmatchday.GroupMatchDaySimulation;
 import com.example.footballtournamentsimulator.simulator.grroupmatchday.MatchWithOutcome;
@@ -11,14 +12,13 @@ import com.example.footballtournamentsimulator.simulator.outcomes.PossibleGroupO
 import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulation;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
 
 import java.util.List;
 
-import static com.example.footballtournamentsimulator.match.MatchOutcome.AWAY_TEAM_WIN;
-import static com.example.footballtournamentsimulator.match.MatchOutcome.HOME_TEAM_WIN;
-import static com.example.footballtournamentsimulator.match.MatchPoints.TIE;
-import static com.example.footballtournamentsimulator.match.MatchPoints.WIN;
+import static com.example.footballtournamentsimulator.actualdata.match.MatchOutcome.AWAY_TEAM_WIN;
+import static com.example.footballtournamentsimulator.actualdata.match.MatchOutcome.HOME_TEAM_WIN;
+import static com.example.footballtournamentsimulator.actualdata.match.MatchPoints.TIE;
+import static com.example.footballtournamentsimulator.actualdata.match.MatchPoints.WIN;
 
 public class MatchDaySimulator {
 

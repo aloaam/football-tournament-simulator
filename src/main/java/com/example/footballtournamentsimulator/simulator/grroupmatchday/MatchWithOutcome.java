@@ -1,6 +1,6 @@
 package com.example.footballtournamentsimulator.simulator.grroupmatchday;
 
-import com.example.footballtournamentsimulator.match.MatchOutcome;
+import com.example.footballtournamentsimulator.actualdata.match.MatchOutcome;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulation;
 import lombok.Getter;
 import lombok.ToString;

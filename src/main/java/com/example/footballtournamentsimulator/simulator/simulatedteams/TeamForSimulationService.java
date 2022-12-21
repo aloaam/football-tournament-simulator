@@ -1,11 +1,11 @@
 package com.example.footballtournamentsimulator.simulator.simulatedteams;
 
-import com.example.footballtournamentsimulator.match.MatchPoints;
-import com.example.footballtournamentsimulator.team.Team;
-import com.example.footballtournamentsimulator.team.TeamRepository;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroup;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName;
-import com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupRepository;
+import com.example.footballtournamentsimulator.actualdata.match.MatchPoints;
+import com.example.footballtournamentsimulator.actualdata.team.Team;
+import com.example.footballtournamentsimulator.actualdata.team.TeamRepository;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroup;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupName;
+import com.example.footballtournamentsimulator.actualdata.tournamentgroup.TournamentGroupRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;

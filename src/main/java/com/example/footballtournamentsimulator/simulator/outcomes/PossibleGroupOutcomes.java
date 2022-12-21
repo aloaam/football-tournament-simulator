@@ -1,6 +1,6 @@
 package com.example.footballtournamentsimulator.simulator.outcomes;
 
-import com.example.footballtournamentsimulator.match.MatchOutcome;
+import com.example.footballtournamentsimulator.actualdata.match.MatchOutcome;
 
 import java.util.List;
 
