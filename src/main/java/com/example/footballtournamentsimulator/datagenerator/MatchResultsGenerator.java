@@ -32,10 +32,10 @@ public class MatchResultsGenerator implements DataGenerator {
     }
 
     public void generateMatchResultsGroupA() {
-        Team ecu = teamRepository.getTeamByTeamName(ECUADOR);
-        Team nld = teamRepository.getTeamByTeamName(NETHERLANDS);
-        Team qat = teamRepository.getTeamByTeamName(QATAR);
-        Team sen = teamRepository.getTeamByTeamName(SENEGAL);
+        Team ecu = teamRepository.getTeamByTeamName(AJAX);
+        Team nld = teamRepository.getTeamByTeamName(LIVERPOOL);
+        Team qat = teamRepository.getTeamByTeamName(NAPOLI);
+        Team sen = teamRepository.getTeamByTeamName(RANGERS);
 
         matchRepository.updatePoints(qat.getId(), ecu.getId(), 0, 2);
         matchRepository.updatePoints(sen.getId(), nld.getId(), 0, 2);
@@ -47,10 +47,10 @@ public class MatchResultsGenerator implements DataGenerator {
     }
 
     public void generateMatchResultsGroupB() {
-        Team eng = teamRepository.getTeamByTeamName(ENGLAND);
-        Team irn = teamRepository.getTeamByTeamName(IRAN);
-        Team usa = teamRepository.getTeamByTeamName(USA);
-        Team wls = teamRepository.getTeamByTeamName(WALES);
+        Team eng = teamRepository.getTeamByTeamName(ATLETICO_MADRID);
+        Team usa = teamRepository.getTeamByTeamName(BAYERN_LEVERKUSEN);
+        Team irn = teamRepository.getTeamByTeamName(CLUB_BRUGGE);
+        Team wls = teamRepository.getTeamByTeamName(PORTO);
 
         matchRepository.updatePoints(eng.getId(), irn.getId(), 6, 2);
         matchRepository.updatePoints(usa.getId(), wls.getId(), 1, 1);
@@ -62,9 +62,9 @@ public class MatchResultsGenerator implements DataGenerator {
     }
 
     public void generateMatchResultsGroupC() {
-        Team arg = teamRepository.getTeamByTeamName(ARGENTINA);
-        Team mex = teamRepository.getTeamByTeamName(MEXICO);
-        Team pol = teamRepository.getTeamByTeamName(POLAND);
+        Team arg = teamRepository.getTeamByTeamName(BAYERN_MUNICH);
+        Team mex = teamRepository.getTeamByTeamName(BARCELONA);
+        Team pol = teamRepository.getTeamByTeamName(PI);
         Team sau = teamRepository.getTeamByTeamName(SAUDI_ARABIA);
 
         matchRepository.updatePoints(arg.getId(), sau.getId(), 1, 2);

@@ -12,9 +12,13 @@ import java.util.List;
 import static com.example.footballtournamentsimulator.team.TeamName.*;
 import static com.example.footballtournamentsimulator.tournamentgroup.TournamentGroupName.*;
 
+/**
+ * Fills in the 'match' table, with the matches that will take place,
+ * it doesn't include the score or the data which is calculated with it.
+ */
 @SuppressWarnings("DuplicatedCode")
 public class MatchGenerator implements DataGenerator {
-
+//TODO: ALO - change names in the acronyms, or better do inline variables, remove barcelona
     private final MatchRepository matchRepository;
     private final TeamRepository teamRepository;
     private final TournamentGroupRepository tournamentGroupRepository;
@@ -41,10 +45,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(A);
 
-        Team ecu = teamRepository.getTeamByTeamName(ECUADOR);
-        Team nld = teamRepository.getTeamByTeamName(NETHERLANDS);
-        Team qat = teamRepository.getTeamByTeamName(QATAR);
-        Team sen = teamRepository.getTeamByTeamName(SENEGAL);
+        Team ecu = teamRepository.getTeamByTeamName(NAPOLI);
+        Team nld = teamRepository.getTeamByTeamName(LIVERPOOL);
+        Team qat = teamRepository.getTeamByTeamName(AJAX);
+        Team sen = teamRepository.getTeamByTeamName(RANGERS);
 
         storeMatches(
                 List.of(
@@ -53,7 +57,13 @@ public class MatchGenerator implements DataGenerator {
                         new Match(qat, sen, group, 2),
                         new Match(nld, ecu, group, 2),
                         new Match(ecu, sen, group, 3),
-                        new Match(nld, qat, group, 3)
+                        new Match(nld, qat, group, 3),
+                        new Match(nld, qat, group, 4),
+                        new Match(nld, qat, group, 4),
+                        new Match(nld, qat, group, 5),
+                        new Match(nld, qat, group, 5),
+                        new Match(nld, qat, group, 6),
+                        new Match(nld, qat, group, 6)
                 )
         );
     }
@@ -62,10 +72,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team eng = teamRepository.getTeamByTeamName(ENGLAND);
-        Team irn = teamRepository.getTeamByTeamName(IRAN);
-        Team usa = teamRepository.getTeamByTeamName(USA);
-        Team wls = teamRepository.getTeamByTeamName(WALES);
+        Team eng = teamRepository.getTeamByTeamName(PORTO);
+        Team irn = teamRepository.getTeamByTeamName(CLUB_BRUGGE);
+        Team usa = teamRepository.getTeamByTeamName(BAYERN_LEVERKUSEN);
+        Team wls = teamRepository.getTeamByTeamName(ATLETICO_MADRID);
 
         storeMatches(
                 List.of(
@@ -83,10 +93,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(C);
 
-        Team arg = teamRepository.getTeamByTeamName(ARGENTINA);
-        Team mex = teamRepository.getTeamByTeamName(MEXICO);
-        Team pol = teamRepository.getTeamByTeamName(POLAND);
-        Team sau = teamRepository.getTeamByTeamName(SAUDI_ARABIA);
+        Team arg = teamRepository.getTeamByTeamName(BAYERN_MUNICH);
+        Team mex = teamRepository.getTeamByTeamName(INTER_MILAN);
+        Team pol = teamRepository.getTeamByTeamName(FC_BARCELONA);
+        Team sau = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(
@@ -104,10 +114,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team aus = teamRepository.getTeamByTeamName(AUSTRALIA);
-        Team dnk = teamRepository.getTeamByTeamName(DENMARK);
-        Team fra = teamRepository.getTeamByTeamName(FRANCE);
-        Team tun = teamRepository.getTeamByTeamName(TUNISIA);
+        Team aus = teamRepository.getTeamByTeamName();
+        Team dnk = teamRepository.getTeamByTeamName();
+        Team fra = teamRepository.getTeamByTeamName();
+        Team tun = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(
@@ -125,10 +135,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team cri = teamRepository.getTeamByTeamName(COSTA_RICA);
-        Team deu = teamRepository.getTeamByTeamName(GERMANY);
-        Team jpn = teamRepository.getTeamByTeamName(JAPAN);
-        Team esp = teamRepository.getTeamByTeamName(SPAIN);
+        Team cri = teamRepository.getTeamByTeamName();
+        Team deu = teamRepository.getTeamByTeamName();
+        Team jpn = teamRepository.getTeamByTeamName();
+        Team esp = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(
@@ -146,10 +156,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team bel = teamRepository.getTeamByTeamName(BELGIUM);
-        Team can = teamRepository.getTeamByTeamName(CANADA);
-        Team hrv = teamRepository.getTeamByTeamName(CROATIA);
-        Team mar = teamRepository.getTeamByTeamName(MOROCCO);
+        Team bel = teamRepository.getTeamByTeamName();
+        Team can = teamRepository.getTeamByTeamName();
+        Team hrv = teamRepository.getTeamByTeamName();
+        Team mar = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(
@@ -167,10 +177,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team bra = teamRepository.getTeamByTeamName(BRAZIL);
-        Team cmr = teamRepository.getTeamByTeamName(CAMEROON);
-        Team srb = teamRepository.getTeamByTeamName(SERBIA);
-        Team che = teamRepository.getTeamByTeamName(SWITZERLAND);
+        Team bra = teamRepository.getTeamByTeamName();
+        Team cmr = teamRepository.getTeamByTeamName();
+        Team srb = teamRepository.getTeamByTeamName();
+        Team che = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(
@@ -188,10 +198,10 @@ public class MatchGenerator implements DataGenerator {
 
         TournamentGroup group = tournamentGroupRepository.getTournamentGroupByName(B);
 
-        Team gha = teamRepository.getTeamByTeamName(GHANA);
-        Team prt = teamRepository.getTeamByTeamName(PORTUGAL);
-        Team kor = teamRepository.getTeamByTeamName(SOUTH_KOREA);
-        Team ury = teamRepository.getTeamByTeamName(URUGUAY);
+        Team gha = teamRepository.getTeamByTeamName();
+        Team prt = teamRepository.getTeamByTeamName();
+        Team kor = teamRepository.getTeamByTeamName();
+        Team ury = teamRepository.getTeamByTeamName();
 
         storeMatches(
                 List.of(

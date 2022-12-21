@@ -3,7 +3,7 @@ package com.example.footballtournamentsimulator.datagenerator;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Creates data to fill-in the DB.
+ * Creates data to store in the DB.
  */
 @Slf4j
 public class FootballDataGenerator implements DataGenerator {
