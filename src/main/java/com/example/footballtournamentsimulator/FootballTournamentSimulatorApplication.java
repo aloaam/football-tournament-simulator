@@ -8,11 +8,11 @@ import com.example.footballtournamentsimulator.datagenerator.TournamentGroupGene
 import com.example.footballtournamentsimulator.exporter.CsvFileExporter;
 import com.example.footballtournamentsimulator.match.MatchRepository;
 import com.example.footballtournamentsimulator.match.MatchService;
+import com.example.footballtournamentsimulator.matchday.GroupMatchSimulationService;
 import com.example.footballtournamentsimulator.matchday.MatchDayService;
 import com.example.footballtournamentsimulator.points.TeamPointsUpdater;
-import com.example.footballtournamentsimulator.simulator.HomeAwayMatchesFromMatchDaySimulator;
-import com.example.footballtournamentsimulator.simulator.HomeAwayMatchesFromMatchDaySimulatorService;
 import com.example.footballtournamentsimulator.simulator.MatchDaySimulator;
+import com.example.footballtournamentsimulator.simulator.grroupmatchday.GroupMatchDaySimulation;
 import com.example.footballtournamentsimulator.simulator.outcomes.PossibleMatchOutcomesService;
 import com.example.footballtournamentsimulator.simulator.simulatedteams.TeamForSimulationService;
 import com.example.footballtournamentsimulator.team.TeamRepository;
@@ -48,9 +48,9 @@ public class FootballTournamentSimulatorApplication {
             final MatchDaySimulator matchDaySimulator = new MatchDaySimulator(new PossibleMatchOutcomesService(),
                     teamForSimulationService,
                     new MatchDayService(groupRepository, matchRepository),
-                    new HomeAwayMatchesFromMatchDaySimulatorService(teamForSimulationService));
+                    new GroupMatchSimulationService(teamForSimulationService));
 
-            List<HomeAwayMatchesFromMatchDaySimulator> simulations = matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, 3);
+            List<GroupMatchDaySimulation> simulations = matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, 3);
         simulations.forEach(System.out::println);
 
         };
