@@ -42,44 +42,58 @@ public class FootballTournamentSimulatorApplication {
     ) {
         return args -> {
 
+            final Repositories repos = new Repositories(teamRepository, matchRepository, groupRepository);
             final MatchService matchService = new MatchService();
 
-            final int matchDay = 6;
-            generateData(teamRepository, matchRepository, groupRepository);
-            updatePoints(teamRepository, matchRepository, groupRepository, matchDay);
+            final int matchDay = 5;
+            generateData(repos);
+            updatePoints(repos, matchDay);
+//            printMatchSimulations(repos, TournamentGroupName.D, matchDay);
+            printAllGroups(repos);
 
-            final TeamService teamService = new TeamService(teamRepository, matchService, groupRepository);
-            teamService.getTeamsGroupedByTournamentGroup()
-                    .forEach(System.out::println);
         };
     }
 
-    private void getMatchSimulations(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository groupRepository, int matchDay) {
-        TeamForSimulationService teamForSimulationService = new TeamForSimulationService(groupRepository, teamRepository);
+    private void printAllGroups(Repositories repos) {
+        final MatchService matchService = new MatchService();
+        final TeamService teamService = new TeamService(repos.teamRepository, matchService, repos.groupRepository);
+        teamService.getTeamsGroupedByTournamentGroup()
+                .forEach(System.out::println);
+    }
+
+    private List<GroupMatchDaySimulation> printMatchSimulations(Repositories repos, TournamentGroupName groupName, int matchDay) {
+        TeamForSimulationService teamForSimulationService = new TeamForSimulationService(repos.groupRepository, repos.teamRepository);
         final MatchDaySimulator matchDaySimulator = new MatchDaySimulator(new PossibleMatchOutcomesService(),
                 teamForSimulationService,
-                new MatchDayService(groupRepository, matchRepository),
+                new MatchDayService(repos.groupRepository, repos.matchRepository),
                 new GroupMatchSimulationService(teamForSimulationService));
 
-        List<GroupMatchDaySimulation> simulations = matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(TournamentGroupName.C, matchDay + 1);
+        List<GroupMatchDaySimulation> simulations = matchDaySimulator.getMatchDayPossibleOutcomeByGroupAndMatchDay(groupName, matchDay + 1);
         simulations.forEach(System.out::println);
+        return simulations;
     }
 
     private void exportCsv(TeamRepository teamRepository, TournamentGroupRepository tournamentGroupRepository) throws IOException {
         new CsvFileExporter(new TeamService(teamRepository, new MatchService(), tournamentGroupRepository)).export();
     }
 
-    private void updatePoints(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository, int matchDay) {
-        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(matchRepository, new TeamService(teamRepository, new MatchService(), tournamentGroupRepository));
+    private void updatePoints(Repositories repos, int matchDay) {
+        final TeamService teamService = new TeamService(repos.teamRepository, new MatchService(), repos.groupRepository);
+        TeamPointsUpdater teamPointsUpdater = new TeamPointsUpdater(repos.matchRepository, teamService);
         teamPointsUpdater.update(matchDay);
     }
 
-    private void generateData(TeamRepository teamRepository, MatchRepository matchRepository, TournamentGroupRepository tournamentGroupRepository) {
-        MatchGenerator matchGenerator = new MatchGenerator(matchRepository, teamRepository, tournamentGroupRepository);
-        MatchResultsGenerator matchResultsGenerator = new MatchResultsGenerator(teamRepository, matchRepository);
-        TournamentGroupGenerator tournamentGroupGenerator = new TournamentGroupGenerator(teamRepository);
+    private void generateData(Repositories repos) {
+        MatchGenerator matchGenerator = new MatchGenerator(repos.matchRepository, repos.teamRepository, repos.groupRepository);
+        MatchResultsGenerator matchResultsGenerator = new MatchResultsGenerator(repos.teamRepository, repos.matchRepository);
+        TournamentGroupGenerator tournamentGroupGenerator = new TournamentGroupGenerator(repos.teamRepository);
 
         final FootballDataGenerator footballDataGenerator = new FootballDataGenerator(matchGenerator, matchResultsGenerator, tournamentGroupGenerator);
         footballDataGenerator.generate();
     }
+
+    private record Repositories(TeamRepository teamRepository, MatchRepository matchRepository,
+                                TournamentGroupRepository groupRepository) {
+    }
+
 }
