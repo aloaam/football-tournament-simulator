@@ -30,6 +30,11 @@ function App() {
 
   const columns = [
     {
+      title: "Group",
+      dataIndex: "group",
+      key: "group"
+    },
+    {
       title: "Team",
       dataIndex: "teamName",
       key: "teamName"
@@ -41,8 +46,9 @@ function App() {
     }
   ]
 
-  const teamSubSet = teams.map(({ teamName, points }) => {
-    return ({teamName, points})
+  const teamSubSet = teams.map(({ tournamentGroupId, teamName, points }) => {
+    var group = tournamentGroupId["groupName"]
+  return ({group,teamName, points})
   })
 
   const renderTeams = () => {
